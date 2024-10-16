@@ -1,0 +1,163 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Evaluacion3AJAX.Data;
+using Evaluacion3AJAX.Models;
+
+namespace Evaluacion3AJAX.Controllers
+{
+    public class TareasController : Controller
+    {
+        private readonly ProyectoDbContext _context;
+
+        public TareasController(ProyectoDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: Tareas
+        public async Task<IActionResult> Index()
+        {
+              return _context.Tareas != null ? 
+                          View(await _context.Tareas.ToListAsync()) :
+                          Problem("Entity set 'ProyectoDbContext.Tareas'  is null.");
+        }
+
+        // GET: Tareas/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Tareas == null)
+            {
+                return NotFound();
+            }
+
+            var tarea = await _context.Tareas
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+
+            return View(tarea);
+        }
+
+        // GET: Tareas/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Tareas/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Descripcion,FechaIngreso,FechaInicio,Estado,Responsable")] Tarea tarea)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(tarea);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(tarea);
+        }
+
+        // GET: Tareas/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Tareas == null)
+            {
+                return NotFound();
+            }
+
+            var tarea = await _context.Tareas.FindAsync(id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+            return View(tarea);
+        }
+
+        // POST: Tareas/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,FechaIngreso,FechaInicio,Estado,Responsable")] Tarea tarea)
+        {
+            if (id != tarea.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(tarea);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TareaExists(tarea.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(tarea);
+        }
+
+        // GET: Tareas/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || _context.Tareas == null)
+            {
+                return NotFound();
+            }
+
+            var tarea = await _context.Tareas
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+
+            return View(tarea);
+        }
+
+        // POST: Tareas/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Tareas == null)
+            {
+                return Problem("Entity set 'ProyectoDbContext.Tareas'  is null.");
+            }
+            var tarea = await _context.Tareas.FindAsync(id);
+            if (tarea != null)
+            {
+                _context.Tareas.Remove(tarea);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool TareaExists(int id)
+        {
+          return (_context.Tareas?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+    }
+}

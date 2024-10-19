@@ -10,87 +10,87 @@ using Evaluacion3AJAX.Models;
 
 namespace Evaluacion3AJAX.Controllers
 {
-    public class TareasController : Controller
+    public class UsuariosController : Controller
     {
         private readonly ProyectoDbContext _context;
 
-        public TareasController(ProyectoDbContext context)
+        public UsuariosController(ProyectoDbContext context)
         {
             _context = context;
         }
 
-        // GET: Tareas
+        // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Tareas != null ? 
-                          View(await _context.Tareas.ToListAsync()) :
-                          Problem("Entity set 'ProyectoDbContext.Tareas'  is null.");
+              return _context.Usuarios != null ? 
+                          View(await _context.Usuarios.ToListAsync()) :
+                          Problem("Entity set 'ProyectoDbContext.Usuarios'  is null.");
         }
 
-        // GET: Tareas/Details/5
+        // GET: Usuarios/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Tareas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tarea = await _context.Tareas
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tarea == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(tarea);
+            return View(usuario);
         }
 
-        // GET: Tareas/Create
+        // GET: Usuarios/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tareas/Create
+        // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descripcion,FechaIngreso,FechaInicio,Estado,Responsable")] Tarea tarea)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Email,Telefono")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tarea);
+                _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(tarea);
+            return View(usuario);
         }
 
-        // GET: Tareas/Edit/5
+        // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Tareas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tarea = await _context.Tareas.FindAsync(id);
-            if (tarea == null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
             {
                 return NotFound();
             }
-            return View(tarea);
+            return View(usuario);
         }
 
-        // POST: Tareas/Edit/5
+        // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descripcion,FechaIngreso,FechaInicio,Estado,Responsable")] Tarea tarea)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Email,Telefono")] Usuario usuario)
         {
-            if (id != tarea.Id)
+            if (id != usuario.Id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace Evaluacion3AJAX.Controllers
             {
                 try
                 {
-                    _context.Update(tarea);
+                    _context.Update(usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TareaExists(tarea.Id))
+                    if (!UsuarioExists(usuario.Id))
                     {
                         return NotFound();
                     }
@@ -115,49 +115,49 @@ namespace Evaluacion3AJAX.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(tarea);
+            return View(usuario);
         }
 
-        // GET: Tareas/Delete/5
+        // GET: Usuarios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Tareas == null)
+            if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var tarea = await _context.Tareas
+            var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (tarea == null)
+            if (usuario == null)
             {
                 return NotFound();
             }
 
-            return View(tarea);
+            return View(usuario);
         }
 
-        // POST: Tareas/Delete/5
+        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Tareas == null)
+            if (_context.Usuarios == null)
             {
-                return Problem("Entity set 'ProyectoDbContext.Tareas'  is null.");
+                return Problem("Entity set 'ProyectoDbContext.Usuarios'  is null.");
             }
-            var tarea = await _context.Tareas.FindAsync(id);
-            if (tarea != null)
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario != null)
             {
-                _context.Tareas.Remove(tarea);
+                _context.Usuarios.Remove(usuario);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TareaExists(int id)
+        private bool UsuarioExists(int id)
         {
-          return (_context.Tareas?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

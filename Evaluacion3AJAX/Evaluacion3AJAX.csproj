@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.35" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.35" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.35" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.35">
       <PrivateAssets>all</PrivateAssets>
@@ -24,11 +25,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Tareas\Create.cshtml" />
-    <None Include="Views\Tareas\Delete.cshtml" />
-    <None Include="Views\Tareas\Details.cshtml" />
-    <None Include="Views\Tareas\Edit.cshtml" />
-    <None Include="Views\Tareas\Index.cshtml" />
+    <None Include="Views\AsignacionHerramientas\Create.cshtml" />
+    <None Include="Views\AsignacionHerramientas\Delete.cshtml" />
+    <None Include="Views\AsignacionHerramientas\Details.cshtml" />
+    <None Include="Views\AsignacionHerramientas\Edit.cshtml" />
+    <None Include="Views\AsignacionHerramientas\Index.cshtml" />
+    <None Include="Views\Herramientas\Create.cshtml" />
+    <None Include="Views\Herramientas\Delete.cshtml" />
+    <None Include="Views\Herramientas\Details.cshtml" />
+    <None Include="Views\Herramientas\Edit.cshtml" />
+    <None Include="Views\Herramientas\Index.cshtml" />
+    <None Include="Views\MantenimientoHerramientas\Create.cshtml" />
+    <None Include="Views\MantenimientoHerramientas\Delete.cshtml" />
+    <None Include="Views\MantenimientoHerramientas\Details.cshtml" />
+    <None Include="Views\MantenimientoHerramientas\Edit.cshtml" />
+    <None Include="Views\MantenimientoHerramientas\Index.cshtml" />
+    <None Include="Views\UnidadHerramientas\Create.cshtml" />
+    <None Include="Views\UnidadHerramientas\Delete.cshtml" />
+    <None Include="Views\UnidadHerramientas\Details.cshtml" />
+    <None Include="Views\UnidadHerramientas\Edit.cshtml" />
+    <None Include="Views\UnidadHerramientas\Index.cshtml" />
+    <None Include="Views\Usuarios\Create.cshtml" />
+    <None Include="Views\Usuarios\Delete.cshtml" />
+    <None Include="Views\Usuarios\Details.cshtml" />
+    <None Include="Views\Usuarios\Edit.cshtml" />
+    <None Include="Views\Usuarios\Index.cshtml" />
   </ItemGroup>
 
 </Project>

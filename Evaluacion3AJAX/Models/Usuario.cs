@@ -1,17 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace Evaluacion3AJAX.Models
 {
     public class Usuario
     {
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
-        public string Password { get; set; }
 
-        // Relación uno a muchos entre Usuario y Rol, o sea, un usuario puede tener un rol
-
-        [ForeignKey("Rol")]
-        public int RolId { get; set; }
+        [Required]
+        [Phone]
+        public string Telefono { get; set; }
     }
 }
